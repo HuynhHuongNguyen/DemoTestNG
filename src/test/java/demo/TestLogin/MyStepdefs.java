@@ -1,25 +1,24 @@
 package demo;
 
-import io.cucumber.java.After;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.When;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 import pages.LogInPage;
 
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertTrue;
 
-public class TestLogin {
+public class MyStepdefs {
+
     private WebDriver driver = null;
-    //Pages
+
     private LogInPage logInPage = null;
-
-
     @BeforeMethod()
     public void setup() {
         WebDriverManager.chromedriver().setup();
@@ -38,20 +37,21 @@ public class TestLogin {
         logInPage = new LogInPage(driver);
     }
 
-    @Test
-    public void main() {
+    @Given("I LogIn web as <username> and <password>")
+    public void iLogInWebAsUsernameAndPassword() {
         logInPage.logInAs("z.d.r.a.v.k.o.stojkoski@gmail.com", "ThePassword01##!!");
         assertTrue(logInPage.isLogInSuccessful());
-        logInPage.selectOption("Admin Portal");
     }
 
-//    @Test
-//    public void Test1() {
-//        logInPage.logInAs("username", "password");
-//        assertTrue(logInPage.isLogInSuccessful());
-//    }
+    @When("I select to open <option>")
+    public void iSelectToOpenOption() {
+        logInPage.selectOption("Admin Portal");
+    }
+}
+
 //    @AfterMethod()
 //    public void teardown() {
-//        driver.quit();
+//
+////        driver.quit();
 //    }
-}
+
