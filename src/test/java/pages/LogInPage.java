@@ -38,24 +38,25 @@ public class LogInPage {
 
     //Constructor
     public LogInPage(WebDriver driver){
-        this.driver=driver;
-
+        this.driver = driver;
         //Initialise Elements
         PageFactory.initElements(driver, this);
     }
 
     public void logInAs(String username, String password) {
-        String baseURL = "https://admin-dev.nowbookit.com/";
-        this.driver.get(baseURL+PAGE_URL);
+
+        System.out.print(username + password);
+
         txtUsername.sendKeys(username);
         txtPassword.sendKeys(password);
         btnLogin.click();
     }
 
     public boolean isLogInSuccessful(){
+        String expectedPageText = "You have successfully logged in";
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         WebElement lblHeadingOption = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[@class='loginConfirmation--heading']")));
-        return lblHeadingOption.getText().contains("You have successfully logged in");
+        return lblHeadingOption.getText().contains(expectedPageText);
     }
 
     public void selectOption(String option) {
